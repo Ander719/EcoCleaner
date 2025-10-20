@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Animator))]
@@ -9,12 +9,18 @@ public class Player2D : MonoBehaviour
     public float fuerzaSalto = 10f;
 
     [Header("Ataque")]
-    public float duracionAtaque = 0.3f; // duración del ataque en segundos, ajustar según animación
+    public float duracionAtaque = 0.3f;
+
+    [Header("Daño")]
+    public float duracionDanio = 0.5f;
+    public float retroceso = 3f;
+    public float reboteAlEnemigo = 8f; // rebote hacia arriba si cae encima del enemigo
 
     private Rigidbody2D rb;
     private Animator animator;
     private bool enSuelo = true;
     private bool atacando = false;
+    private bool recibiendoDanio = false;
 
     void Awake()
     {
@@ -25,6 +31,9 @@ public class Player2D : MonoBehaviour
 
     void Update()
     {
+        // Si está recibiendo daño o atacando, no puede moverse ni saltar
+        if (recibiendoDanio || atacando) return;
+
         // Movimiento horizontal
         float moverHorizontal = Input.GetAxis("Horizontal");
         rb.linearVelocity = new Vector2(moverHorizontal * velocidad, rb.linearVelocity.y);
@@ -33,8 +42,8 @@ public class Player2D : MonoBehaviour
         if (moverHorizontal < 0) transform.localScale = new Vector3(-1, 1, 1);
         else if (moverHorizontal > 0) transform.localScale = new Vector3(1, 1, 1);
 
-        // Animación caminar (solo si está en el suelo y no está atacando)
-        animator.SetBool("isWalking", Mathf.Abs(moverHorizontal) > 0.1f && enSuelo && !atacando);
+        // Animación caminar
+        animator.SetBool("isWalking", Mathf.Abs(moverHorizontal) > 0.1f && enSuelo);
 
         // Saltar
         if (Input.GetKeyDown(KeyCode.Space) && enSuelo)
@@ -53,28 +62,76 @@ public class Player2D : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        // Suelo
         if (collision.collider.CompareTag("Suelo"))
         {
             enSuelo = true;
-            animator.SetBool("isJumping", false); // detener salto
+            animator.SetBool("isJumping", false);
+        }
+
+        // Enemigo
+        if (collision.collider.CompareTag("Enemigo") && !recibiendoDanio)
+        {
+            Vector2 puntoContacto = collision.GetContact(0).point;
+
+            // Si el jugador está más alto que el enemigo → rebota (NO recibe daño)
+            if (transform.position.y > collision.transform.position.y + 0.3f)
+            {
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, reboteAlEnemigo);
+            }
+            else
+            {
+                // De lo contrario, recibe daño
+                StartCoroutine(RecibirDanio(collision));
+            }
         }
     }
 
     private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.collider.CompareTag("Suelo"))
-        {
             enSuelo = false;
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Enemigo") && !recibiendoDanio)
+        {
+            StartCoroutine(RecibirDanio(null));
         }
     }
 
-    // Corutina que controla el ataque
+    // ⚔ Corutina de ataque
     private System.Collections.IEnumerator AtacarCoroutine()
     {
         atacando = true;
         animator.SetBool("isAttacking", true);
-        yield return new WaitForSeconds(duracionAtaque); // duración exacta del ataque
+        yield return new WaitForSeconds(duracionAtaque);
         animator.SetBool("isAttacking", false);
         atacando = false;
+
+    }
+
+    // 💢 Corutina de recibir daño
+    private System.Collections.IEnumerator RecibirDanio(Collision2D col)
+    {
+        recibiendoDanio = true;
+        animator.SetBool("isDamage", true);
+
+        // Retroceso
+        if (col != null)
+        {
+            Vector2 direccion = (transform.position - col.transform.position).normalized;
+            rb.linearVelocity = new Vector2(direccion.x * retroceso, rb.linearVelocity.y + 2f);
+        }
+        else
+        {
+            rb.linearVelocity = new Vector2(-transform.localScale.x * retroceso, rb.linearVelocity.y + 2f);
+        }
+
+        yield return new WaitForSeconds(duracionDanio);
+
+        animator.SetBool("isDamage", false);
+        recibiendoDanio = false;
     }
 }
