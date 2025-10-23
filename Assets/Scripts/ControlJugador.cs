@@ -70,22 +70,31 @@ public class Player2D : MonoBehaviour
         }
 
         // Enemigo
-        if (collision.collider.CompareTag("Enemigo") && !recibiendoDanio)
+        if (collision.collider.CompareTag("Enemigo"))
         {
-            Vector2 puntoContacto = collision.GetContact(0).point;
-
-            // Si el jugador está más alto que el enemigo → rebota (NO recibe daño)
-            if (transform.position.y > collision.transform.position.y + 0.3f)
+            if (atacando)
             {
-                rb.linearVelocity = new Vector2(rb.linearVelocity.x, reboteAlEnemigo);
+                // Si está atacando, destruye al enemigo
+                Destroy(collision.gameObject);
             }
-            else
+            else if (!recibiendoDanio)
             {
-                // De lo contrario, recibe daño
-                StartCoroutine(RecibirDanio(collision));
+                Vector2 puntoContacto = collision.GetContact(0).point;
+
+                // Si el jugador está más alto que el enemigo → rebota (NO recibe daño)
+                if (transform.position.y > collision.transform.position.y + 0.3f)
+                {
+                    rb.linearVelocity = new Vector2(rb.linearVelocity.x, reboteAlEnemigo);
+                }
+                else
+                {
+                    // De lo contrario, recibe daño
+                    StartCoroutine(RecibirDanio(collision));
+                }
             }
         }
     }
+
 
     private void OnCollisionExit2D(Collision2D collision)
     {
