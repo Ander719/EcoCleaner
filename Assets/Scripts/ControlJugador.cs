@@ -123,7 +123,7 @@ public class Player2D : MonoBehaviour
         atacando = true;
         animator.SetBool("isAttacking", true);
         boxCollider.offset = new Vector2(0.3f, 0f);
-        boxCollider.size = new Vector2(0.4f, 0.3f);
+        boxCollider.size = new Vector2(0.4f, 0.4f);
         // Espera mientras dura el ataque
         yield return new WaitForSeconds(1);
         animator.SetBool("isAttacking", false);
