@@ -1,3 +1,4 @@
+﻿using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -21,7 +22,13 @@ public class Player2D : MonoBehaviour
     private bool enSuelo = true;
     private bool atacando = false;
     private bool recibiendoDanio = false;
+    private BoxCollider2D boxCollider;
 
+    private void Start()
+    {
+        boxCollider = GetComponent<BoxCollider2D>();
+
+    }
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -54,7 +61,7 @@ public class Player2D : MonoBehaviour
         }
 
         // Ataque con Enter
-        if (Input.GetKeyDown(KeyCode.Return) && !atacando)
+        if (Input.GetKeyDown(KeyCode.Return) && !atacando && enSuelo)
         {
             StartCoroutine(AtacarCoroutine());
         }
@@ -70,22 +77,31 @@ public class Player2D : MonoBehaviour
         }
 
         // Enemigo
-        if (collision.collider.CompareTag("Enemigo") && !recibiendoDanio)
+        if (collision.collider.CompareTag("Enemigo"))
         {
-            Vector2 puntoContacto = collision.GetContact(0).point;
-
-            // Si el jugador está más alto que el enemigo → rebota (NO recibe daño)
-            if (transform.position.y > collision.transform.position.y + 0.3f)
+            if (atacando)
             {
-                rb.linearVelocity = new Vector2(rb.linearVelocity.x, reboteAlEnemigo);
+                // Si está atacando, destruye al enemigo
+                Destroy(collision.gameObject);
             }
-            else
+            else if (!recibiendoDanio)
             {
-                // De lo contrario, recibe daño
-                StartCoroutine(RecibirDanio(collision));
+                Vector2 puntoContacto = collision.GetContact(0).point;
+
+                // Si el jugador está más alto que el enemigo → rebota (NO recibe daño)
+                if (transform.position.y > collision.transform.position.y + 0.3f)
+                {
+                    rb.linearVelocity = new Vector2(rb.linearVelocity.x, reboteAlEnemigo);
+                }
+                else
+                {
+                    // De lo contrario, recibe daño
+                    StartCoroutine(RecibirDanio(collision));
+                }
             }
         }
     }
+
 
     private void OnCollisionExit2D(Collision2D collision)
     {
@@ -101,14 +117,20 @@ public class Player2D : MonoBehaviour
         }
     }
 
-    // ⚔️ Corutina de ataque
+    // ⚔ Corutina de ataque
     private System.Collections.IEnumerator AtacarCoroutine()
     {
         atacando = true;
         animator.SetBool("isAttacking", true);
-        yield return new WaitForSeconds(duracionAtaque);
+        boxCollider.offset = new Vector2(0.3f, 0f);
+        boxCollider.size = new Vector2(0.4f, 0.4f);
+        // Espera mientras dura el ataque
+        yield return new WaitForSeconds(1);
         animator.SetBool("isAttacking", false);
         atacando = false;
+        boxCollider.offset = new Vector2(0f, 0f);
+        boxCollider.size = new Vector2(0.3f, 0.4f);
+
     }
 
     // 💢 Corutina de recibir daño
