@@ -11,9 +11,6 @@ public class Player2D : MonoBehaviour
 
     [Header("Ataque")]
     public float duracionAtaque = 0.3f;
-    public float hitboxXNormal = 1f;   
-    public float hitboxXAtaque = 3f;
-    public float hitboxExpandSpeed = 10f;
 
     [Header("Daño")]
     public float duracionDanio = 0.5f;
@@ -25,7 +22,13 @@ public class Player2D : MonoBehaviour
     private bool enSuelo = true;
     private bool atacando = false;
     private bool recibiendoDanio = false;
+    private BoxCollider2D boxCollider;
 
+    private void Start()
+    {
+        boxCollider = GetComponent<BoxCollider2D>();
+
+    }
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -119,16 +122,14 @@ public class Player2D : MonoBehaviour
     {
         atacando = true;
         animator.SetBool("isAttacking", true);
-
+        boxCollider.offset = new Vector2(0.3f, 0f);
+        boxCollider.size = new Vector2(0.4f, 0.3f);
         // Espera mientras dura el ataque
         yield return new WaitForSeconds(1);
         animator.SetBool("isAttacking", false);
         atacando = false;
-
-    }
-
-    private void cambioDeHitbox(bool v)
-    {
+        boxCollider.offset = new Vector2(0f, 0f);
+        boxCollider.size = new Vector2(0.3f, 0.3f);
 
     }
 
