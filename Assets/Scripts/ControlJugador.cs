@@ -129,7 +129,7 @@ public class Player2D : MonoBehaviour
         animator.SetBool("isAttacking", false);
         atacando = false;
         boxCollider.offset = new Vector2(0f, 0f);
-        boxCollider.size = new Vector2(0.3f, 0.3f);
+        boxCollider.size = new Vector2(0.3f, 0.4f);
 
     }
 
