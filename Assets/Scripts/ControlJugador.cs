@@ -61,7 +61,7 @@ public class Player2D : MonoBehaviour
         }
 
         // Ataque con Enter
-        if (Input.GetKeyDown(KeyCode.Return) && !atacando)
+        if (Input.GetKeyDown(KeyCode.Return) && !atacando && enSuelo)
         {
             StartCoroutine(AtacarCoroutine());
         }
