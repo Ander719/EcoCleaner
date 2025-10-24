@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Animator))]
@@ -10,6 +11,9 @@ public class Player2D : MonoBehaviour
 
     [Header("Ataque")]
     public float duracionAtaque = 0.3f;
+    public float hitboxXNormal = 1f;   
+    public float hitboxXAtaque = 3f;
+    public float hitboxExpandSpeed = 10f;
 
     [Header("Daño")]
     public float duracionDanio = 0.5f;
@@ -115,9 +119,16 @@ public class Player2D : MonoBehaviour
     {
         atacando = true;
         animator.SetBool("isAttacking", true);
-        yield return new WaitForSeconds(duracionAtaque);
+
+        // Espera mientras dura el ataque
+        yield return new WaitForSeconds(1);
         animator.SetBool("isAttacking", false);
         atacando = false;
+
+    }
+
+    private void cambioDeHitbox(bool v)
+    {
 
     }
 
