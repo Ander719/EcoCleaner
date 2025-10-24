@@ -6,10 +6,7 @@ TagManager:
   tags:
   - Suelo
   - Jugador
-<<<<<<< HEAD
-=======
   - Ataque
->>>>>>> a95d193f46bac396c9358161cba1942ca09f4fab
   - Enemigo
   layers:
   - Default
