@@ -82,6 +82,7 @@ public class Player2D : MonoBehaviour
             if (atacando)
             {
                 // Si está atacando, destruye al enemigo
+                
                 Destroy(collision.gameObject);
             }
             else if (!recibiendoDanio)
@@ -125,7 +126,7 @@ public class Player2D : MonoBehaviour
         boxCollider.offset = new Vector2(0.3f, 0f);
         boxCollider.size = new Vector2(0.4f, 0.4f);
         // Espera mientras dura el ataque
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(duracionAtaque);
         animator.SetBool("isAttacking", false);
         atacando = false;
         boxCollider.offset = new Vector2(0f, 0f);
