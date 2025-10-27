@@ -6,11 +6,12 @@ TagManager:
   tags:
   - Suelo
   - Jugador
+  - Boss
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ground
   - Water
   - UI
   - 
