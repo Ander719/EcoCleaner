@@ -118,19 +118,19 @@ TextureImporter:
       name: Centipede_attack2_0
       rect:
         serializedVersion: 2
-        x: 26
+        x: 27
         y: 0
-        width: 47
-        height: 38
+        width: 45
+        height: 37
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 62ed410d1baeb9570800000000000000
+      spriteID: 69240fa1a5653c74fa159cd2a40981d4
       internalID: 8474625173248859686
       vertices: []
       indices: 
@@ -140,19 +140,19 @@ TextureImporter:
       name: Centipede_attack2_1
       rect:
         serializedVersion: 2
-        x: 101
+        x: 102
         y: 0
-        width: 44
-        height: 41
+        width: 42
+        height: 40
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: b045823b7e1a6bd20800000000000000
+      spriteID: d245af4b7e70d9a40a53189f1533e98b
       internalID: 3293998193983378443
       vertices: []
       indices: 
@@ -162,19 +162,19 @@ TextureImporter:
       name: Centipede_attack2_2
       rect:
         serializedVersion: 2
-        x: 173
+        x: 174
         y: 0
-        width: 44
-        height: 41
+        width: 42
+        height: 40
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: f45377f34bd6820a0800000000000000
+      spriteID: ec00918f736b9a3479b475ec564b89d6
       internalID: -6906149407646337713
       vertices: []
       indices: 
@@ -184,19 +184,19 @@ TextureImporter:
       name: Centipede_attack2_3
       rect:
         serializedVersion: 2
-        x: 224
+        x: 225
         y: 0
-        width: 64
-        height: 41
+        width: 62
+        height: 40
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 12be9b1520297f530800000000000000
+      spriteID: ec6ed6942b55b134481654336c15e471
       internalID: 3888737341916441377
       vertices: []
       indices: 
@@ -206,19 +206,19 @@ TextureImporter:
       name: Centipede_attack2_4
       rect:
         serializedVersion: 2
-        x: 292
+        x: 293
         y: 0
-        width: 67
-        height: 27
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 65
+        height: 26
+      alignment: 9
+      pivot: {x: 0.5, y: 0.75}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 09b672ed9a035ec70800000000000000
+      spriteID: 0e161f3b8f902fa4d92a09f4645ea3dc
       internalID: 8999652936504535952
       vertices: []
       indices: 
@@ -228,19 +228,19 @@ TextureImporter:
       name: Centipede_attack2_5
       rect:
         serializedVersion: 2
-        x: 369
+        x: 370
         y: 0
-        width: 63
-        height: 27
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        width: 61
+        height: 26
+      alignment: 9
+      pivot: {x: 0.5, y: 0.75}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: e7e493522ba257520800000000000000
+      spriteID: 71162bf8bcb8b4f4e82277af7229176d
       internalID: 2699110496295538302
       vertices: []
       indices: 
@@ -250,7 +250,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: ce26475ed62f7a24cbeb6b7c53931561
     internalID: 0
     vertices: []
     indices: 
