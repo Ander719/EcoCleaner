@@ -101,6 +101,7 @@ public class Player2D : MonoBehaviour
                 // Si el jugador está más alto que el enemigo → rebota (NO recibe daño)
                 if (transform.position.y > collision.transform.position.y + 0.3f)
                 {
+                    playerSound.playSaltar();
                     rb.linearVelocity = new Vector2(rb.linearVelocity.x, reboteAlEnemigo);
                 }
                 else
