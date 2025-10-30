@@ -81,9 +81,15 @@ public class Player2D : MonoBehaviour
         {
             if (atacando)
             {
-                // Si está atacando, destruye al enemigo
-                
-                Destroy(collision.gameObject);
+                Enemigo e = collision.gameObject.GetComponent<Enemigo>();
+                if (e != null)
+                {
+                    e.Morir();
+                }
+                else
+                {
+                    Destroy(collision.gameObject); 
+                }
             }
             else if (!recibiendoDanio)
             {
@@ -149,6 +155,11 @@ public class Player2D : MonoBehaviour
         else
         {
             rb.linearVelocity = new Vector2(-transform.localScale.x * retroceso, rb.linearVelocity.y + 2f);
+        }
+        VidaJugador vida = GetComponent<VidaJugador>();
+        if (vida != null)
+        {
+            vida.RecibirDanio(3); // Ajusta el daño que quieras
         }
 
         yield return new WaitForSeconds(duracionDanio);
