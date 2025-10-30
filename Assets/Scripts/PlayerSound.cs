@@ -7,6 +7,7 @@ public class PlayerSound : MonoBehaviour
     public AudioClip sonidoRecibirDano;
     public AudioClip sonidoMuerte;
     public AudioClip sonidoAtaque;
+    public AudioClip sonidoRecogerItem;
 
     public void playSaltar()
     {
@@ -23,5 +24,9 @@ public class PlayerSound : MonoBehaviour
     public void playAtaque()
     {
         audioSource.PlayOneShot(sonidoAtaque);
+    }
+    public void playRecoger()
+    {
+        audioSource.PlayOneShot(sonidoRecogerItem);
     }
 }

@@ -121,11 +121,16 @@ public class Player2D : MonoBehaviour
             enSuelo = false;
     }
 
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Enemigo") && !recibiendoDanio)
         {
             StartCoroutine(RecibirDanio(null));
+        }
+        if (other.CompareTag("Item"))
+        {
+            playerSound.playRecoger();
         }
     }
 

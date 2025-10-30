@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Coleccionable : MonoBehaviour
 {
+
     public int puntos = 10;
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -13,8 +14,8 @@ public class Coleccionable : MonoBehaviour
             {
                 controlador.IncrementarPuntuacion(puntos);
             }
-
             Destroy(gameObject);
+
         }
     }
 }

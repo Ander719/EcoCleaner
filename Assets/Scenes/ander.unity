@@ -271,6 +271,7 @@ MonoBehaviour:
   sonidoRecibirDano: {fileID: 8300000, guid: bd90ac7a0a098404cbe663ed5df6b54b, type: 3}
   sonidoMuerte: {fileID: 8300000, guid: 4bf0ab26c0ba9344cb65f4625c41d40e, type: 3}
   sonidoAtaque: {fileID: 8300000, guid: 574e1f0195cd3ae4d8961114854c7df1, type: 3}
+  sonidoRecogerItem: {fileID: 8300000, guid: c946e4a225ad99442acc8a96f3f3f6fc, type: 3}
 --- !u!82 &771139196
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1885,6 +1886,10 @@ PrefabInstance:
     - target: {fileID: 9008787074680876778, guid: 01ec1f880e8c14f43a8e9c586173e78d, type: 3}
       propertyPath: m_Name
       value: Banana
+      objectReference: {fileID: 0}
+    - target: {fileID: 9008787074680876778, guid: 01ec1f880e8c14f43a8e9c586173e78d, type: 3}
+      propertyPath: m_TagString
+      value: Item
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
