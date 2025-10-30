@@ -17,7 +17,7 @@ public class VidaJugador : MonoBehaviour
         ActualizarBarra();
     }
 
-    // Método para recibir daño
+    // Mï¿½todo para recibir daï¿½o
     public void RecibirDanio(int cantidad)
     {
         vidaActual -= cantidad;
@@ -38,10 +38,10 @@ public class VidaJugador : MonoBehaviour
             barraVida.value = (float)vidaActual / vidaMaxima;
     }
 
-    // Qué pasa cuando la vida llega a 0
+    // Quï¿½ pasa cuando la vida llega a 0
     private void Morir()
     {
-        Debug.Log("Jugador murió");
+        Debug.Log("Jugador muriï¿½");
 
         estaMuerto = true;
 
@@ -49,7 +49,7 @@ public class VidaJugador : MonoBehaviour
         Player2D player = GetComponent<Player2D>();
         if (player != null) player.enabled = false;
 
-        // Animación de muerte
+        // Animaciï¿½n de muerte
         Animator anim = GetComponent<Animator>();
         if (anim != null) anim.SetBool("isDead", true);
 
@@ -60,18 +60,18 @@ public class VidaJugador : MonoBehaviour
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         if (rb != null)
         {
-            rb.velocity = Vector2.zero;
+            rb.linearVelocity = Vector2.zero;
             rb.gravityScale = 0f;
         }
 
-        // ?? Cargar la escena de Game Over después de la animación
-        float duracionAnimacion = 2.5f; // Ajusta según la duración de tu animación
+        // ?? Cargar la escena de Game Over despuï¿½s de la animaciï¿½n
+        float duracionAnimacion = 2.5f; // Ajusta segï¿½n la duraciï¿½n de tu animaciï¿½n
         Invoke("CargarGameOver", duracionAnimacion);
     }
 
-    // Método para cargar la escena de Game Over
+    // Mï¿½todo para cargar la escena de Game Over
     private void CargarGameOver()
     {
-        SceneManager.LoadScene("GameOver"); // Asegúrate que coincide con el nombre de tu escena
+        SceneManager.LoadScene("GameOver"); // Asegï¿½rate que coincide con el nombre de tu escena
     }
 }
