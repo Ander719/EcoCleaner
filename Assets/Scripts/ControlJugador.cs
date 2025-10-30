@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class Player2D : MonoBehaviour
 {
+    public PlayerSound playerSound;
     [Header("Movimiento")]
     public float velocidad = 5f;
     public float fuerzaSalto = 10f;
@@ -55,6 +56,7 @@ public class Player2D : MonoBehaviour
         // Saltar
         if (Input.GetKeyDown(KeyCode.Space) && enSuelo)
         {
+            playerSound.playSaltar();
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, fuerzaSalto);
             enSuelo = false;
             animator.SetBool("isJumping", true);
@@ -63,6 +65,7 @@ public class Player2D : MonoBehaviour
         // Ataque con Enter
         if (Input.GetKeyDown(KeyCode.Return) && !atacando && enSuelo)
         {
+            playerSound.playAtaque();
             StartCoroutine(AtacarCoroutine());
         }
     }
@@ -81,8 +84,15 @@ public class Player2D : MonoBehaviour
         {
             if (atacando)
             {
-                // Si está atacando, destruye al enemigo
-                Destroy(collision.gameObject);
+                Enemigo e = collision.gameObject.GetComponent<Enemigo>();
+                if (e != null)
+                {
+                    e.Morir();
+                }
+                else
+                {
+                    Destroy(collision.gameObject); 
+                }
             }
             else if (!recibiendoDanio)
             {
@@ -95,6 +105,7 @@ public class Player2D : MonoBehaviour
                 }
                 else
                 {
+                    playerSound.playRecibirDano();
                     // De lo contrario, recibe daño
                     StartCoroutine(RecibirDanio(collision));
                 }
@@ -125,7 +136,7 @@ public class Player2D : MonoBehaviour
         boxCollider.offset = new Vector2(0.3f, 0f);
         boxCollider.size = new Vector2(0.4f, 0.4f);
         // Espera mientras dura el ataque
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(duracionAtaque);
         animator.SetBool("isAttacking", false);
         atacando = false;
         boxCollider.offset = new Vector2(0f, 0f);
@@ -148,6 +159,11 @@ public class Player2D : MonoBehaviour
         else
         {
             rb.linearVelocity = new Vector2(-transform.localScale.x * retroceso, rb.linearVelocity.y + 2f);
+        }
+        VidaJugador vida = GetComponent<VidaJugador>();
+        if (vida != null)
+        {
+            vida.RecibirDanio(3); // Ajusta el daño que quieras
         }
 
         yield return new WaitForSeconds(duracionDanio);
