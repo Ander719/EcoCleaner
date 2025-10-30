@@ -5,6 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class Player2D : MonoBehaviour
 {
+    public PlayerSound playerSound;
     [Header("Movimiento")]
     public float velocidad = 5f;
     public float fuerzaSalto = 10f;
@@ -55,6 +56,7 @@ public class Player2D : MonoBehaviour
         // Saltar
         if (Input.GetKeyDown(KeyCode.Space) && enSuelo)
         {
+            playerSound.playSaltar();
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, fuerzaSalto);
             enSuelo = false;
             animator.SetBool("isJumping", true);
@@ -63,6 +65,7 @@ public class Player2D : MonoBehaviour
         // Ataque con Enter
         if (Input.GetKeyDown(KeyCode.Return) && !atacando && enSuelo)
         {
+            playerSound.playAtaque();
             StartCoroutine(AtacarCoroutine());
         }
     }
@@ -98,10 +101,12 @@ public class Player2D : MonoBehaviour
                 // Si el jugador está más alto que el enemigo → rebota (NO recibe daño)
                 if (transform.position.y > collision.transform.position.y + 0.3f)
                 {
+                    playerSound.playSaltar();
                     rb.linearVelocity = new Vector2(rb.linearVelocity.x, reboteAlEnemigo);
                 }
                 else
                 {
+                    playerSound.playRecibirDano();
                     // De lo contrario, recibe daño
                     StartCoroutine(RecibirDanio(collision));
                 }
@@ -116,11 +121,16 @@ public class Player2D : MonoBehaviour
             enSuelo = false;
     }
 
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Enemigo") && !recibiendoDanio)
         {
             StartCoroutine(RecibirDanio(null));
+        }
+        if (other.CompareTag("Item"))
+        {
+            playerSound.playRecoger();
         }
     }
 
