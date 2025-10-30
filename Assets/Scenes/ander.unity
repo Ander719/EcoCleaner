@@ -177,6 +177,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4877087694759702405, guid: d4e3c07bcf8adf04ebdf4b4a3ce99c7c, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7343741878575575964, guid: d4e3c07bcf8adf04ebdf4b4a3ce99c7c, type: 3}
       propertyPath: m_Name
       value: Jugador
@@ -244,6 +248,7 @@ MonoBehaviour:
   vidaMaxima: 10
   vidaActual: 0
   barraVida: {fileID: 1603706281}
+  estaMuerto: 0
 --- !u!1 &989364533
 GameObject:
   m_ObjectHideFlags: 0

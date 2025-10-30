@@ -143,6 +143,10 @@ public class Player2D : MonoBehaviour
     // 💢 Corutina de recibir daño
     private System.Collections.IEnumerator RecibirDanio(Collision2D col)
     {
+        VidaJugador vida = GetComponent<VidaJugador>();
+        if (vida != null && vida.estaMuerto)
+            yield break; // No recibe daño si está muerto
+
         recibiendoDanio = true;
         animator.SetBool("isDamage", true);
 
@@ -156,10 +160,11 @@ public class Player2D : MonoBehaviour
         {
             rb.linearVelocity = new Vector2(-transform.localScale.x * retroceso, rb.linearVelocity.y + 2f);
         }
-        VidaJugador vida = GetComponent<VidaJugador>();
+
+        // Resta vida
         if (vida != null)
         {
-            vida.RecibirDanio(3); // Ajusta el daño que quieras
+            vida.RecibirDanio(10);
         }
 
         yield return new WaitForSeconds(duracionDanio);

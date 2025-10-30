@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class VidaJugador : MonoBehaviour
@@ -7,6 +8,7 @@ public class VidaJugador : MonoBehaviour
     public int vidaMaxima = 9;   // Vida total del jugador
     public int vidaActual;         // Vida actual
     public Slider barraVida;       // Slider de la barra de vida
+    public bool estaMuerto = false;
 
     private void Start()
     {
@@ -40,6 +42,36 @@ public class VidaJugador : MonoBehaviour
     private void Morir()
     {
         Debug.Log("Jugador murió");
-        // Aquí puedes poner animación de muerte o reiniciar el nivel
+
+        estaMuerto = true;
+
+        // Bloquear controles
+        Player2D player = GetComponent<Player2D>();
+        if (player != null) player.enabled = false;
+
+        // Animación de muerte
+        Animator anim = GetComponent<Animator>();
+        if (anim != null) anim.SetBool("isDead", true);
+
+        // Hacer trigger y detener gravedad para que no caiga
+        BoxCollider2D box = GetComponent<BoxCollider2D>();
+        if (box != null) box.isTrigger = true;
+
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        if (rb != null)
+        {
+            rb.velocity = Vector2.zero;
+            rb.gravityScale = 0f;
+        }
+
+        // ?? Cargar la escena de Game Over después de la animación
+        float duracionAnimacion = 2.5f; // Ajusta según la duración de tu animación
+        Invoke("CargarGameOver", duracionAnimacion);
+    }
+
+    // Método para cargar la escena de Game Over
+    private void CargarGameOver()
+    {
+        SceneManager.LoadScene("GameOver"); // Asegúrate que coincide con el nombre de tu escena
     }
 }
