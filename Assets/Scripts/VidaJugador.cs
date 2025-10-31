@@ -41,7 +41,6 @@ public class VidaJugador : MonoBehaviour
     // Qu� pasa cuando la vida llega a 0
     private void Morir()
     {
-        Debug.Log("Jugador muri�");
 
         estaMuerto = true;
 
@@ -65,7 +64,14 @@ public class VidaJugador : MonoBehaviour
         }
 
         // ?? Cargar la escena de Game Over despu�s de la animaci�n
-        float duracionAnimacion = 2.5f; // Ajusta seg�n la duraci�n de tu animaci�n
+        ControladorPuntuacionEnemigo puntaje = FindAnyObjectByType<ControladorPuntuacionEnemigo>();
+        ControladorPuntuacion puntajebasura = FindAnyObjectByType<ControladorPuntuacion>();
+        if (puntaje != null && puntajebasura != null)
+            DatosJuego.puntuacionEnemigo = puntaje.getPuntuacion();
+            DatosJuego.puntuacionBasura = puntajebasura.getBasura();
+
+        // Esperamos animación
+        float duracionAnimacion = 2.5f;
         Invoke("CargarGameOver", duracionAnimacion);
     }
 

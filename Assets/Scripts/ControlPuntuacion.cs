@@ -9,4 +9,5 @@ public class ControladorPuntuacion : MonoBehaviour
         puntuacion += cantidad;
         textoPuntuacion.text = "X" + puntuacion;
     }
+    public int getBasura() { return puntuacion; }
 }

@@ -23,15 +23,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ander.unity
     guid: dbe84c0fafd36da40a08413cd12361d8
-<<<<<<< HEAD
-=======
   - enabled: 1
-    path: Assets/Scenes/Aingeru.unity
-    guid: c2eb409197d8abc4a9fec00f74506c04
-  - enabled: 1
-    path: Assets/Scenes/alex.unity
-    guid: 0cbe610a1723d6a45a18bb349322c53c
->>>>>>> 8fc585b7ee38870422c6ccacd1cf3b9624f9a75f
+    path: Assets/Scenes/GameOver.unity
+    guid: 2dc1335ac6d72a142bc577ddfd17452f
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0
