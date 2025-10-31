@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Animator))]
@@ -9,6 +10,7 @@ public class Player2D : MonoBehaviour
     [Header("Movimiento")]
     public float velocidad = 5f;
     public float fuerzaSalto = 10f;
+    public int vidaP = 10;
 
     [Header("Ataque")]
     public float duracionAtaque = 0.3f;
@@ -27,6 +29,7 @@ public class Player2D : MonoBehaviour
 
     private void Start()
     {
+        vidaP = 10;
         boxCollider = GetComponent<BoxCollider2D>();
 
     }
@@ -174,12 +177,24 @@ public class Player2D : MonoBehaviour
         // Resta vida
         if (vida != null)
         {
-            vida.RecibirDanio(10);
+            vida.RecibirDanio(5);
+            vidaP = vidaP - 5;
         }
-
         yield return new WaitForSeconds(duracionDanio);
-
         animator.SetBool("isDamage", false);
         recibiendoDanio = false;
+        if (vidaP <1)
+        {
+            yield return new WaitForSeconds(5);
+            playerSound.playMuerte();
+            SceneManager.LoadScene("GameOver");
+        }
+
+        
+
+        
+
+
+        
     }
 }
