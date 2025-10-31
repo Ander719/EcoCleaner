@@ -12,7 +12,6 @@ public class Enemigo : MonoBehaviour
 
     public void Morir()
     {
-        Debug.Log("Enemigo murió");
         if (controlador != null)
         {
             controlador.IncrementarPuntuacion(puntos);

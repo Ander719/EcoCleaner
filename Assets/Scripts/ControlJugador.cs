@@ -73,7 +73,7 @@ public class Player2D : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         // Suelo
-        if (collision.collider.CompareTag("Suelo"))
+        if (collision.collider.CompareTag("Suelo")|| collision.collider.CompareTag("Enemigo"))
         {
             enSuelo = true;
             animator.SetBool("isJumping", false);

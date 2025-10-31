@@ -41,36 +41,48 @@ public class VidaJugador : MonoBehaviour
     // Qu� pasa cuando la vida llega a 0
     private void Morir()
     {
-
         estaMuerto = true;
 
         // Bloquear controles
         Player2D player = GetComponent<Player2D>();
-        if (player != null) player.enabled = false;
+        if (player != null)
+            player.enabled = false;
 
-        // Animaci�n de muerte
+        // Animación de muerte
         Animator anim = GetComponent<Animator>();
-        if (anim != null) anim.SetBool("isDead", true);
+        if (anim != null)
+            anim.SetBool("isDead", true);
 
-        // Hacer trigger y detener gravedad para que no caiga
-        BoxCollider2D box = GetComponent<BoxCollider2D>();
-        if (box != null) box.isTrigger = true;
-
+        // Rigidbody y collider
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
-        if (rb != null)
+        BoxCollider2D box = GetComponent<BoxCollider2D>();
+        if (rb != null && box != null)
         {
-            rb.linearVelocity = Vector2.zero;
-            rb.gravityScale = 0f;
+            // Mantener gravedad para que caiga si estaba en el aire
+            rb.gravityScale = 2f;
+
+            // Congelar movimiento horizontal y rotación
+            rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
+
+            // Ignorar colisiones con todos los enemigos
+            Collider2D[] enemigos = FindObjectsOfType<Collider2D>();
+            foreach (var e in enemigos)
+            {
+                if (e.CompareTag("Enemigo"))
+                    Physics2D.IgnoreCollision(e, box);
+            }
         }
 
-        // ?? Cargar la escena de Game Over despu�s de la animaci�n
+        // Guardar puntuaciones
         ControladorPuntuacionEnemigo puntaje = FindAnyObjectByType<ControladorPuntuacionEnemigo>();
         ControladorPuntuacion puntajebasura = FindAnyObjectByType<ControladorPuntuacion>();
         if (puntaje != null && puntajebasura != null)
+        {
             DatosJuego.puntuacionEnemigo = puntaje.getPuntuacion();
             DatosJuego.puntuacionBasura = puntajebasura.getBasura();
+        }
 
-        // Esperamos animación
+        // Esperar animación antes de cargar GameOver
         float duracionAnimacion = 2.5f;
         Invoke("CargarGameOver", duracionAnimacion);
     }
