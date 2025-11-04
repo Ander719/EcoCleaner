@@ -11,4 +11,6 @@ public class ControladorPuntuacionEnemigo : MonoBehaviour
         puntuacion += cantidad;
         textoPuntuacion.text = puntuacion.ToString("D5");
     }
+    public int getPuntuacion() { return puntuacion; }
+
 }
