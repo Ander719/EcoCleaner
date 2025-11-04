@@ -39,7 +39,7 @@ public class VidaJugador : MonoBehaviour
     }
 
     // Qu� pasa cuando la vida llega a 0
-    private void Morir()
+    public void Morir()
     {
         estaMuerto = true;
 
@@ -90,6 +90,6 @@ public class VidaJugador : MonoBehaviour
     // M�todo para cargar la escena de Game Over
     private void CargarGameOver()
     {
-        SceneManager.LoadScene("GameOver"); // Aseg�rate que coincide con el nombre de tu escena
+        SceneManager.LoadScene("Victoria"); // Aseg�rate que coincide con el nombre de tu escena
     }
 }

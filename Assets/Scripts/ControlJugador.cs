@@ -6,6 +6,7 @@ using UnityEngine;
 public class Player2D : MonoBehaviour
 {
     public PlayerSound playerSound;
+
     [Header("Movimiento")]
     public float velocidad = 5f;
     public float fuerzaSalto = 10f;
@@ -18,6 +19,9 @@ public class Player2D : MonoBehaviour
     public float retroceso = 3f;
     public float reboteAlEnemigo = 8f; // rebote hacia arriba si cae encima del enemigo
 
+    [Header("Altura mínima para morir")]
+    public float alturaMinima = -0.8f; // El jugador no puede caer por debajo de esta altura
+
     private Rigidbody2D rb;
     private Animator animator;
     private bool enSuelo = true;
@@ -25,22 +29,36 @@ public class Player2D : MonoBehaviour
     private bool recibiendoDanio = false;
     private BoxCollider2D boxCollider;
 
-    private void Start()
-    {
-        boxCollider = GetComponent<BoxCollider2D>();
-
-    }
-    void Awake()
+    private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         rb.freezeRotation = true;
         animator = GetComponent<Animator>();
+        boxCollider = GetComponent<BoxCollider2D>();
     }
+
+    private void Start() { }
 
     void Update()
     {
-        // Si está recibiendo daño o atacando, no puede moverse ni saltar
-        if (recibiendoDanio || atacando) return;
+        VidaJugador vida = GetComponent<VidaJugador>();
+
+        // Chequear altura mínima siempre
+        if (vida != null && !vida.estaMuerto && transform.position.y < alturaMinima)
+        {
+            vida.Morir();
+
+            // Mantener al jugador en Y mínima
+            Vector3 pos = transform.position;
+            pos.y = alturaMinima;
+            transform.position = pos;
+
+            // Salimos del Update para no procesar movimiento
+            return;
+        }
+
+        // Si está recibiendo daño, atacando o muerto, no puede moverse ni saltar
+        if (recibiendoDanio || atacando || (vida != null && vida.estaMuerto)) return;
 
         // Movimiento horizontal
         float moverHorizontal = Input.GetAxis("Horizontal");
@@ -73,7 +91,7 @@ public class Player2D : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         // Suelo
-        if (collision.collider.CompareTag("Suelo")|| collision.collider.CompareTag("Enemigo"))
+        if (collision.collider.CompareTag("Suelo") || collision.collider.CompareTag("Enemigo"))
         {
             enSuelo = true;
             animator.SetBool("isJumping", false);
@@ -85,20 +103,11 @@ public class Player2D : MonoBehaviour
             if (atacando)
             {
                 Enemigo e = collision.gameObject.GetComponent<Enemigo>();
-                if (e != null)
-                {
-                    e.Morir();
-                }
-                else
-                {
-                    Destroy(collision.gameObject); 
-                }
+                if (e != null) e.Morir();
+                else Destroy(collision.gameObject);
             }
             else if (!recibiendoDanio)
             {
-                Vector2 puntoContacto = collision.GetContact(0).point;
-
-                // Si el jugador está más alto que el enemigo → rebota (NO recibe daño)
                 if (transform.position.y > collision.transform.position.y + 0.3f)
                 {
                     playerSound.playSaltar();
@@ -107,20 +116,17 @@ public class Player2D : MonoBehaviour
                 else
                 {
                     playerSound.playRecibirDano();
-                    // De lo contrario, recibe daño
                     StartCoroutine(RecibirDanio(collision));
                 }
             }
         }
     }
 
-
     private void OnCollisionExit2D(Collision2D collision)
     {
         if (collision.collider.CompareTag("Suelo"))
             enSuelo = false;
     }
-
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -134,33 +140,30 @@ public class Player2D : MonoBehaviour
         }
     }
 
-    // ⚔ Corutina de ataque
     private System.Collections.IEnumerator AtacarCoroutine()
     {
         atacando = true;
         animator.SetBool("isAttacking", true);
         boxCollider.offset = new Vector2(0.3f, 0f);
         boxCollider.size = new Vector2(0.4f, 0.4f);
-        // Espera mientras dura el ataque
+
         yield return new WaitForSeconds(duracionAtaque);
+
         animator.SetBool("isAttacking", false);
         atacando = false;
         boxCollider.offset = new Vector2(0f, 0f);
         boxCollider.size = new Vector2(0.3f, 0.4f);
-
     }
 
-    // 💢 Corutina de recibir daño
     private System.Collections.IEnumerator RecibirDanio(Collision2D col)
     {
         VidaJugador vida = GetComponent<VidaJugador>();
         if (vida != null && vida.estaMuerto)
-            yield break; // No recibe daño si está muerto
+            yield break;
 
         recibiendoDanio = true;
         animator.SetBool("isDamage", true);
 
-        // Retroceso
         if (col != null)
         {
             Vector2 direccion = (transform.position - col.transform.position).normalized;
@@ -171,7 +174,6 @@ public class Player2D : MonoBehaviour
             rb.linearVelocity = new Vector2(-transform.localScale.x * retroceso, rb.linearVelocity.y + 2f);
         }
 
-        // Resta vida
         if (vida != null)
         {
             vida.RecibirDanio(10);
