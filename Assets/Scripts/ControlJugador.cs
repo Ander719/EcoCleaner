@@ -76,7 +76,7 @@ public class Player2D : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && enSuelo)
         {
             Debug.Log("✅ SALTO EJECUTADO");
-            //playerSound.playSaltar();
+            playerSound.playSaltar();
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, fuerzaSalto);
             enSuelo = false;
             animator.SetBool("isJumping", true);
