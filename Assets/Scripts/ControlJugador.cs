@@ -10,7 +10,7 @@ public class Player2D : MonoBehaviour
 
     [Header("Movimiento")]
     public float velocidad = 5f;
-    public float fuerzaSalto = 10f;
+    public float fuerzaSalto = 7f;
     public int vidaP = 10;
 
     [Header("Ataque")]
@@ -61,8 +61,8 @@ public class Player2D : MonoBehaviour
         rb.linearVelocity = new Vector2(moverHorizontal * velocidad, rb.linearVelocity.y);
 
         // Girar sprite
-        if (moverHorizontal < 0) transform.localScale = new Vector3(-2, 2, 2);
-        else if (moverHorizontal > 0) transform.localScale = new Vector3(2, 2, 2);
+        if (moverHorizontal < 0) transform.localScale = new Vector3(-3, 3, 3);
+        else if (moverHorizontal > 0) transform.localScale = new Vector3(3, 3, 3);
 
         // Animación caminar
         animator.SetBool("isWalking", Mathf.Abs(moverHorizontal) > 0.1f && enSuelo);
