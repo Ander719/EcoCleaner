@@ -1,31 +1,26 @@
 using UnityEngine;
 
-public class CamaraSeguir : MonoBehaviour
+public class CamaraSoloX : MonoBehaviour
 {
-    [Header("Objetivo a seguir")]
-    public Transform objetivo;
-
-    [Header("Offset")]
-    public Vector3 offset = new Vector3(0f, 2f, -10f);
-
-    [Header("Suavizado")]
+    public Transform objetivo;   // Jugador
+    public float alturaFija = 0f;
     public float suavizado = 5f;
-
-    [Header("Altura mínima")]
-    public float alturaMinima = 0f;
 
     void LateUpdate()
     {
         if (objetivo == null) return;
 
-        // Posición deseada
-        Vector3 posicionDeseada = objetivo.position + offset;
+        Vector3 nuevaPos = transform.position;
 
-        // Limitar altura mínima
-        if (posicionDeseada.y < alturaMinima)
-            posicionDeseada.y = alturaMinima;
+        // Seguir solo eje X
+        nuevaPos.x = objetivo.position.x;
 
-        // Suavizado con Lerp
-        transform.position = Vector3.Lerp(transform.position, posicionDeseada, suavizado * Time.deltaTime);
+        // Mantener Y fija
+        nuevaPos.y = alturaFija;
+
+        // Mantener Z
+        nuevaPos.z = transform.position.z;
+
+        transform.position = Vector3.Lerp(transform.position, nuevaPos, Time.deltaTime * suavizado);
     }
 }
