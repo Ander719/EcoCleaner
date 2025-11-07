@@ -11,5 +11,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Menu.unity
     guid: 488f68d1523bb5a4eb1fe7a8c152e985
+  - enabled: 1
+    path: Assets/Scenes/ander.unity
+    guid: dbe84c0fafd36da40a08413cd12361d8
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

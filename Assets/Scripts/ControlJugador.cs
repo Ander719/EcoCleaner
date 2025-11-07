@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Animator))]
 public class Player2D : MonoBehaviour
@@ -175,6 +176,10 @@ private void OnCollisionExit2D(Collision2D collision)
         if (other.CompareTag("Item"))
         {
             playerSound.playRecoger();
+        }
+        if (other.CompareTag("Finish"))
+        {
+            SceneManager.LoadScene("ander");
         }
     }
     private IEnumerator EfectoVino()

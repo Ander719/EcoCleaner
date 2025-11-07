@@ -56,6 +56,12 @@ TagManager:
   - name: Suelo
     uniqueID: 3987941379
     locked: 0
+  - name: SaltoNivel
+    uniqueID: 4193816493
+    locked: 0
+  - name: Finish
+    uniqueID: 170960677
+    locked: 0
   - name: Player
     uniqueID: 200348169
     locked: 0
