@@ -5,6 +5,6 @@ public class ControladorMenu : MonoBehaviour
     public void IniciarJuego()
     {
         // Cargar la escena principal del juego
-        SceneManager.LoadScene("ander");
+        SceneManager.LoadScene("Nivel1");
     }
 }
