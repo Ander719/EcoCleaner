@@ -9554,6 +9554,10 @@ PrefabInstance:
       propertyPath: playerSound
       value: 
       objectReference: {fileID: 611885577}
+    - target: {fileID: 687794287341130142, guid: d4e3c07bcf8adf04ebdf4b4a3ce99c7c, type: 3}
+      propertyPath: alturaMinima
+      value: -50
+      objectReference: {fileID: 0}
     - target: {fileID: 1596047713808108223, guid: d4e3c07bcf8adf04ebdf4b4a3ce99c7c, type: 3}
       propertyPath: orthographic size
       value: 2.25
@@ -9613,6 +9617,10 @@ PrefabInstance:
     - target: {fileID: 7343741878575575964, guid: d4e3c07bcf8adf04ebdf4b4a3ce99c7c, type: 3}
       propertyPath: m_Name
       value: Jugador
+      objectReference: {fileID: 0}
+    - target: {fileID: 7771010517408833251, guid: d4e3c07bcf8adf04ebdf4b4a3ce99c7c, type: 3}
+      propertyPath: vidaActual
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8540593135248060843, guid: d4e3c07bcf8adf04ebdf4b4a3ce99c7c, type: 3}
       propertyPath: m_SortingLayer

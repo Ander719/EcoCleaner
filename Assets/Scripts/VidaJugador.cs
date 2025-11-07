@@ -6,9 +6,9 @@ public class VidaJugador : MonoBehaviour
 {
     [Header("Vida")]
     public int vidaMaxima = 9;   // Vida total del jugador
-    public int vidaActual;         // Vida actual
+    [HideInInspector] public int vidaActual;         // Vida actual
     public Slider barraVida;       // Slider de la barra de vida
-    public bool estaMuerto = false;
+    [HideInInspector] public bool estaMuerto = false;
 
     private void Start()
     {
