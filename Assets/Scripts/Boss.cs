@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class BossMovement : MonoBehaviour
+public class Boss : MonoBehaviour
 {
     public Rigidbody2D rigidBody;
     public Animator animator;
@@ -10,6 +10,7 @@ public class BossMovement : MonoBehaviour
     public float speed = 2f;
     public int startDirection = 1;
     public bool stayOnEdge = true;
+    public float vidaMax = 3;
 
     private bool isAttacking = false;
 
@@ -18,6 +19,7 @@ public class BossMovement : MonoBehaviour
     private float halfHeight;
     private Vector2 movement;
     private bool isGrounded;
+    private float vida;
 
     public bool IsAttacking => isAttacking;
     
@@ -31,6 +33,8 @@ public class BossMovement : MonoBehaviour
         Vector3 scale = transform.localScale;
         scale.x = Mathf.Abs(scale.x) * (currentDirection == 1 ? -1 : 1); //logica al reves por el sprite
         transform.localScale = scale;
+
+        vida = vidaMax;
     }
     private void OnCollisionStay2D(Collision2D other)
     {
@@ -121,7 +125,6 @@ public class BossMovement : MonoBehaviour
 
         rigidBody.linearVelocity = Vector2.zero; // se queda quieto al atacar
 
-        Debug.Log("Atacando al jugador...");
         StartCoroutine(EndAttack());
     }
 
@@ -132,5 +135,10 @@ public class BossMovement : MonoBehaviour
 
         isAttacking = false;
         animator.SetBool("IsAttacking", false);
+    }
+    public void TakeDamage (float damage)
+    {
+        vida -= damage;
+        if (vida <= 0) Destroy(gameObject);
     }
 }

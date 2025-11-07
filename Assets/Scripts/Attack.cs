@@ -3,16 +3,16 @@ using UnityEngine;
 
 public class Attack : MonoBehaviour
 {
-    private BossMovement bossMovement;
+    private Boss bossMovement;
     private bool playerInRange = false;
     private GameObject currentPlayer;
 
-    [SerializeField] private float reattackDelay = 0.5f; // tiempo de espera tras un ataque
+    [SerializeField] private float reattackDelay = 2f; // tiempo de espera tras un ataque
     private Coroutine attackLoop;
 
     private void Start()
     {
-        bossMovement = GetComponentInParent<BossMovement>();
+        bossMovement = GetComponentInParent<Boss>();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
