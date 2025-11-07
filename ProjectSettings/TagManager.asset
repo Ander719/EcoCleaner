@@ -9,6 +9,7 @@ TagManager:
   - Boss
   - Enemigo
   - Item
+  - Vino
   layers:
   - Default
   - TransparentFX

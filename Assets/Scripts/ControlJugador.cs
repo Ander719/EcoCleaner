@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using TMPro;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -22,13 +24,22 @@ public class Player2D : MonoBehaviour
     [Header("Altura mínima para morir")]
     public float alturaMinima = -0.8f; // El jugador no puede caer por debajo de esta altura
 
+    [Header("Efecto Vino")]
+    public float velocidadReducida = 2f;
+    private float velocidadOriginal;
+
+    [Header("HUD Vino")]
+    public GameObject panelVino;
+    public TextMeshProUGUI cuentaAtras;
+    private float tiempoVino = 10f;
+
     private Rigidbody2D rb;
     private Animator animator;
     private bool enSuelo = true;
     private bool atacando = false;
     private bool recibiendoDanio = false;
     private BoxCollider2D boxCollider;
-
+    private bool controlesInvertidos = false;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -37,7 +48,9 @@ public class Player2D : MonoBehaviour
         boxCollider = GetComponent<BoxCollider2D>();
     }
 
-    private void Start() { }
+    private void Start() {
+        velocidadOriginal = velocidad;
+    }
 
     void Update()
     {
@@ -62,6 +75,9 @@ public class Player2D : MonoBehaviour
 
         // Movimiento horizontal
         float moverHorizontal = Input.GetAxis("Horizontal");
+        if (controlesInvertidos)
+            moverHorizontal *= -1;
+
         rb.linearVelocity = new Vector2(moverHorizontal * velocidad, rb.linearVelocity.y);
 
         // Girar sprite según dirección
@@ -130,6 +146,16 @@ public class Player2D : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (other.CompareTag("Vino"))
+        {
+            VidaJugador vida = GetComponent<VidaJugador>();
+            if (vida != null)
+            {
+                vida.RecibirDanio(1);
+            }
+            StartCoroutine(EfectoVino());
+            Destroy(other.gameObject);
+        }
         if (other.CompareTag("Enemigo") && !recibiendoDanio)
         {
             StartCoroutine(RecibirDanio(null));
@@ -139,7 +165,35 @@ public class Player2D : MonoBehaviour
             playerSound.playRecoger();
         }
     }
+    private IEnumerator EfectoVino()
+    {
+        controlesInvertidos = true;
+        velocidad = velocidadReducida;
 
+        // Activar HUD
+        if (panelVino != null)
+            panelVino.SetActive(true);
+
+        float tiempoRestante = tiempoVino;
+
+        while (tiempoRestante > 0)
+        {
+            tiempoRestante -= Time.deltaTime;
+
+            if (cuentaAtras != null)
+                cuentaAtras.text = tiempoRestante.ToString("F1");  // Ej: 9.5
+
+            yield return null;
+        }
+
+        // Restaurar valores
+        controlesInvertidos = false;
+        velocidad = velocidadOriginal;
+
+        // Apagar HUD
+        if (panelVino != null)
+            panelVino.SetActive(false);
+    }
     private System.Collections.IEnumerator AtacarCoroutine()
     {
         atacando = true;
@@ -176,7 +230,7 @@ public class Player2D : MonoBehaviour
 
         if (vida != null)
         {
-            vida.RecibirDanio(10);
+            vida.RecibirDanio(3);
         }
 
         yield return new WaitForSeconds(duracionDanio);
