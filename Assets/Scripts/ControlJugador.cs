@@ -2,6 +2,7 @@
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Animator))]
@@ -11,7 +12,8 @@ public class Player2D : MonoBehaviour
 
     [Header("Movimiento")]
     public float velocidad = 5f;
-    public float fuerzaSalto = 10f;
+    public float fuerzaSalto = 7f;
+    public int vidaP = 10;
 
     [Header("Ataque")]
     public float duracionAtaque = 0.3f;
@@ -19,10 +21,10 @@ public class Player2D : MonoBehaviour
     [Header("Daño")]
     public float duracionDanio = 0.5f;
     public float retroceso = 3f;
-    public float reboteAlEnemigo = 8f; // rebote hacia arriba si cae encima del enemigo
+    public float reboteAlEnemigo = 8f;
 
     [Header("Altura mínima para morir")]
-    public float alturaMinima = -0.8f; // El jugador no puede caer por debajo de esta altura
+    public float alturaMinima = -0.8f;
 
     [Header("Efecto Vino")]
     public float velocidadReducida = 2f;
@@ -56,21 +58,17 @@ public class Player2D : MonoBehaviour
     {
         VidaJugador vida = GetComponent<VidaJugador>();
 
-        // Chequear altura mínima siempre
+        // Chequear altura mínima
         if (vida != null && !vida.estaMuerto && transform.position.y < alturaMinima)
         {
             vida.Morir();
-
-            // Mantener al jugador en Y mínima
             Vector3 pos = transform.position;
             pos.y = alturaMinima;
             transform.position = pos;
-
-            // Salimos del Update para no procesar movimiento
             return;
         }
 
-        // Si está recibiendo daño, atacando o muerto, no puede moverse ni saltar
+        // Bloquear movimiento si recibe daño o muere
         if (recibiendoDanio || atacando || (vida != null && vida.estaMuerto)) return;
 
         // Movimiento horizontal
@@ -80,23 +78,30 @@ public class Player2D : MonoBehaviour
 
         rb.linearVelocity = new Vector2(moverHorizontal * velocidad, rb.linearVelocity.y);
 
-        // Girar sprite según dirección
-        if (moverHorizontal < 0) transform.localScale = new Vector3(-1, 1, 1);
-        else if (moverHorizontal > 0) transform.localScale = new Vector3(1, 1, 1);
+        // Girar sprite
+        if (moverHorizontal < 0) transform.localScale = new Vector3(-3, 3, 3);
+        else if (moverHorizontal > 0) transform.localScale = new Vector3(3, 3, 3);
 
         // Animación caminar
         animator.SetBool("isWalking", Mathf.Abs(moverHorizontal) > 0.1f && enSuelo);
 
         // Saltar
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Debug.Log($"Intento de salto: enSuelo = {enSuelo}, Velocidad actual Y = {rb.linearVelocity.y}");
+        }
+
         if (Input.GetKeyDown(KeyCode.Space) && enSuelo)
         {
+            Debug.Log("✅ SALTO EJECUTADO");
             playerSound.playSaltar();
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, fuerzaSalto);
             enSuelo = false;
             animator.SetBool("isJumping", true);
+            Debug.Log($"Velocidad después del salto: {rb.linearVelocity}");
         }
 
-        // Ataque con Enter
+        // Ataque
         if (Input.GetKeyDown(KeyCode.Return) && !atacando && enSuelo)
         {
             playerSound.playAtaque();
@@ -104,45 +109,52 @@ public class Player2D : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+   private void OnCollisionEnter2D(Collision2D collision)
+{
+    // ✅ Detectar suelo incluso con CompositeCollider2D
+    if (
+        collision.collider.CompareTag("Suelo") ||
+        (collision.collider.transform.parent != null && collision.collider.transform.parent.CompareTag("Suelo")) ||
+        collision.collider.CompareTag("Enemigo")
+    )
     {
-        // Suelo
-        if (collision.collider.CompareTag("Suelo") || collision.collider.CompareTag("Enemigo"))
-        {
-            enSuelo = true;
-            animator.SetBool("isJumping", false);
-        }
+        enSuelo = true;
+        animator.SetBool("isJumping", false);
+    }
 
-        // Enemigo
-        if (collision.collider.CompareTag("Enemigo"))
+    // Enemigo
+    if (collision.collider.CompareTag("Enemigo"))
+    {
+        if (atacando)
         {
-            if (atacando)
+            Enemigo e = collision.gameObject.GetComponent<Enemigo>();
+            if (e != null) e.Morir();
+            else Destroy(collision.gameObject);
+        }
+        else if (!recibiendoDanio)
+        {
+            if (transform.position.y > collision.transform.position.y + 0.3f)
             {
-                Enemigo e = collision.gameObject.GetComponent<Enemigo>();
-                if (e != null) e.Morir();
-                else Destroy(collision.gameObject);
+                playerSound.playSaltar();
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, reboteAlEnemigo);
             }
-            else if (!recibiendoDanio)
+            else
             {
-                if (transform.position.y > collision.transform.position.y + 0.3f)
-                {
-                    playerSound.playSaltar();
-                    rb.linearVelocity = new Vector2(rb.linearVelocity.x, reboteAlEnemigo);
-                }
-                else
-                {
-                    playerSound.playRecibirDano();
-                    StartCoroutine(RecibirDanio(collision));
-                }
+                playerSound.playRecibirDano();
+                StartCoroutine(RecibirDanio(collision));
             }
         }
     }
+}
 
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.collider.CompareTag("Suelo"))
-            enSuelo = false;
-    }
+private void OnCollisionExit2D(Collision2D collision)
+{
+    if (
+        collision.collider.CompareTag("Suelo") ||
+        (collision.collider.transform.parent != null && collision.collider.transform.parent.CompareTag("Suelo"))
+    )
+        enSuelo = false;
+}
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -234,8 +246,14 @@ public class Player2D : MonoBehaviour
         }
 
         yield return new WaitForSeconds(duracionDanio);
-
         animator.SetBool("isDamage", false);
         recibiendoDanio = false;
+
+        if (vidaP < 1)
+        {
+            yield return new WaitForSeconds(5);
+            playerSound.playMuerte();
+            SceneManager.LoadScene("GameOver");
+        }
     }
 }
