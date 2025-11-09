@@ -1,13 +1,28 @@
 using UnityEngine;
 using TMPro;
+
 public class ControladorPuntuacion : MonoBehaviour
 {
     public TextMeshProUGUI textoPuntuacion;
-    private int puntuacion = 0;
+
+    void Start()
+    {
+        ActualizarTexto();
+    }
+
     public void IncrementarPuntuacion(int cantidad)
     {
-        puntuacion += cantidad;
-        textoPuntuacion.text = "X" + puntuacion;
+        GameManager.instance.puntuacion += cantidad;
+        ActualizarTexto();
     }
-    public int getBasura() { return puntuacion; }
+
+    void ActualizarTexto()
+    {
+        textoPuntuacion.text = "X" + GameManager.instance.puntuacion;
+    }
+
+    public int getBasura()
+    {
+        return GameManager.instance.puntuacion;
+    }
 }
