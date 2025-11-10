@@ -463,6 +463,7 @@ Transform:
   - {fileID: 609870781}
   - {fileID: 1950572139}
   - {fileID: 1828361059}
+  - {fileID: 486794007}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &276221533
@@ -870,6 +871,158 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1001 &486794006
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 165980114}
+    m_Modifications:
+    - target: {fileID: 2829894397768627597, guid: 21571d5d9af36c04daddc532baeb37fb, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2829894397768627597, guid: 21571d5d9af36c04daddc532baeb37fb, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2829894397768627597, guid: 21571d5d9af36c04daddc532baeb37fb, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2829894397768627597, guid: 21571d5d9af36c04daddc532baeb37fb, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 40.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 2829894397768627597, guid: 21571d5d9af36c04daddc532baeb37fb, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2829894397768627597, guid: 21571d5d9af36c04daddc532baeb37fb, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2829894397768627597, guid: 21571d5d9af36c04daddc532baeb37fb, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2829894397768627597, guid: 21571d5d9af36c04daddc532baeb37fb, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2829894397768627597, guid: 21571d5d9af36c04daddc532baeb37fb, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2829894397768627597, guid: 21571d5d9af36c04daddc532baeb37fb, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2829894397768627597, guid: 21571d5d9af36c04daddc532baeb37fb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2829894397768627597, guid: 21571d5d9af36c04daddc532baeb37fb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2829894397768627597, guid: 21571d5d9af36c04daddc532baeb37fb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2829894397768627600, guid: 21571d5d9af36c04daddc532baeb37fb, type: 3}
+      propertyPath: m_Name
+      value: Enemigo 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2829894397768627600, guid: 21571d5d9af36c04daddc532baeb37fb, type: 3}
+      propertyPath: m_TagString
+      value: Enemigo
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 2829894397768627600, guid: 21571d5d9af36c04daddc532baeb37fb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 486794010}
+    - targetCorrespondingSourceObject: {fileID: 2829894397768627600, guid: 21571d5d9af36c04daddc532baeb37fb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 486794009}
+  m_SourcePrefab: {fileID: 100100000, guid: 21571d5d9af36c04daddc532baeb37fb, type: 3}
+--- !u!4 &486794007 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2829894397768627597, guid: 21571d5d9af36c04daddc532baeb37fb, type: 3}
+  m_PrefabInstance: {fileID: 486794006}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &486794008 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2829894397768627600, guid: 21571d5d9af36c04daddc532baeb37fb, type: 3}
+  m_PrefabInstance: {fileID: 486794006}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &486794009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 486794008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2e8c1acf63be3243bd63ae019c9b53e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  puntoA: {x: 40.75, y: 4.4, z: 0}
+  puntoB: {x: 14.42, y: -0.46, z: 0}
+  velocidad: 1
+  tiempoEspera: 2
+  duracionAtaque: 0.5
+--- !u!61 &486794010
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 486794008}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: -0.045}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.45, y: 0.45}
+    newSize: {x: 0.45, y: 0.45}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Size: {x: 0.3, y: 0.35}
+  m_EdgeRadius: 0
 --- !u!1 &531463273
 GameObject:
   m_ObjectHideFlags: 0
@@ -3452,6 +3605,9 @@ MonoBehaviour:
   velocidad: 3
   fuerzaSalto: 5
   duracionAtaque: 0.3
+  duracionDanio: 0.5
+  retroceso: 3
+  reboteAlEnemigo: 8
 --- !u!50 &1950572142
 Rigidbody2D:
   serializedVersion: 5
