@@ -9,24 +9,40 @@ public class PlayerSound : MonoBehaviour
     public AudioClip sonidoAtaque;
     public AudioClip sonidoRecogerItem;
 
+    private AudioManager audioManager;
+
+    private void Awake()
+    {
+        audioManager = FindAnyObjectByType<AudioManager>();
+    }
+
     public void playSaltar()
     {
-        audioSource.PlayOneShot(sonidoSaltar);
+        if (audioManager == null || !audioManager.audioDesactivado())
+            audioSource.PlayOneShot(sonidoSaltar);
     }
+
     public void playRecibirDano()
     {
-        audioSource.PlayOneShot(sonidoRecibirDano);
+        if (audioManager == null || !audioManager.audioDesactivado())
+            audioSource.PlayOneShot(sonidoRecibirDano);
     }
+
     public void playMuerte()
     {
-        audioSource.PlayOneShot(sonidoMuerte);
+        if (audioManager == null || !audioManager.audioDesactivado())
+            audioSource.PlayOneShot(sonidoMuerte);
     }
+
     public void playAtaque()
     {
-        audioSource.PlayOneShot(sonidoAtaque);
+        if (audioManager == null || !audioManager.audioDesactivado())
+            audioSource.PlayOneShot(sonidoAtaque);
     }
+
     public void playRecoger()
     {
-        audioSource.PlayOneShot(sonidoRecogerItem);
+        if (audioManager == null || !audioManager.audioDesactivado())
+            audioSource.PlayOneShot(sonidoRecogerItem);
     }
 }

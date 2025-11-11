@@ -26,6 +26,7 @@ public class NewMonoBehaviourScript : MonoBehaviour
         puntuacionObjetivo = DatosJuego.puntuacionEnemigo;
         basuraObjetivo = DatosJuego.puntuacionBasura;
         puntuacionFinalObjetivo = puntuacionObjetivo * basuraObjetivo;
+        velocidad *= puntuacionFinalObjetivo < 1000 ? 100f : 300f;
     }
 
     void Update()

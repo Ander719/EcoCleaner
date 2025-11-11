@@ -10,6 +10,7 @@ public class CamaraSoloX : MonoBehaviour
     public float minX = -10f;    // Límite izquierdo
     public float maxX = 10f;     // Límite derecho
 
+
     void LateUpdate()
     {
         if (objetivo == null) return;

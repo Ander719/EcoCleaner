@@ -1,3 +1,4 @@
+// GameManager.cs
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -5,6 +6,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     public int puntuacion = 0;
+    public int puntuacionEnemigos = 0;
 
     void Awake()
     {
@@ -13,15 +15,15 @@ public class GameManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
-        else
+        else if (instance != this)
         {
             Destroy(gameObject);
         }
     }
+
     public void ResetearDatos()
     {
-        puntuacion = 0; // La puntuación vuelve a cero
-        Debug.Log("Puntuación restablecida a cero.");
-        // Si tuvieras más variables persistentes (vidas, nivel, etc.), también las pondrías aquí
+        puntuacion = 0;
+        puntuacionEnemigos = 0;
     }
 }
