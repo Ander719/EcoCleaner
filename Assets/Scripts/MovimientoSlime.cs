@@ -63,13 +63,13 @@ public class BloqueMovil : MonoBehaviour
     private void ActualizarDireccionVisual()
     {
         if (moviendoHaciaB && puntoB.x > puntoA.x)
-            transform.localScale = new Vector3(1, 1, 1);
+            transform.localScale = new Vector3(2, 2, 2);
         else if (moviendoHaciaB && puntoB.x < puntoA.x)
-            transform.localScale = new Vector3(-1, 1, 1);
+            transform.localScale = new Vector3(-2, 2, 2);
         else if (!moviendoHaciaB && puntoB.x > puntoA.x)
-            transform.localScale = new Vector3(-1, 1, 1);
+            transform.localScale = new Vector3(-2, 2, 2);
         else
-            transform.localScale = new Vector3(1, 1, 1);
+            transform.localScale = new Vector3(2, 2, 2);
     }
 
     // 🔥 Detecta colisión con el jugador
