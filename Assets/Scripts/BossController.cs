@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 public class BossController : MonoBehaviour
 {
@@ -7,13 +8,12 @@ public class BossController : MonoBehaviour
     public bool stayOnEdge = true;
 
     [Header("Detección")]
-    public float detectionRange = 4f;
     public LayerMask playerLayer;
     public LayerMask groundLayer;
 
     private Rigidbody2D rb;
-    public Animator animator;
-    public SpriteRenderer sr;
+    private Animator animator;
+    private SpriteRenderer spriteRender;
     private int direction;
     private bool isGrounded;
     private bool canMove = true;
@@ -24,22 +24,27 @@ public class BossController : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
+        spriteRender = GetComponent<SpriteRenderer>();
+
         direction = startDirection;
 
-        halfWidth = sr.bounds.extents.x;
-        halfHeight = sr.bounds.extents.y;
+        halfWidth = spriteRender.bounds.extents.x;
+        halfHeight = spriteRender.bounds.extents.y;
 
+        IgnorarColision();
         UpdateFlip();
+    }
+
+    private void Update()
+    {
+        CheckGround();
+        animator.SetBool("IsWalking", isGrounded);
     }
 
     private void FixedUpdate()
     {
-        CheckGround();
-
-        if (canMove)
-            HandleMovement();
-
-        DetectPlayer();
+        if (canMove && isGrounded) HandleMovement();
     }
 
     private void HandleMovement()
@@ -70,21 +75,14 @@ public class BossController : MonoBehaviour
         Vector2 origin = (Vector2)transform.position + Vector2.down * (halfHeight + 0.05f);
         isGrounded = Physics2D.Raycast(origin, Vector2.down, 0.1f, groundLayer);
     }
-
-    private void DetectPlayer()
+    private void IgnorarColision()
     {
-        // Raycast hacia la dirección actual
-        Vector2 origin = transform.position;
-        RaycastHit2D hit = Physics2D.Raycast(origin, Vector2.right * direction, detectionRange, playerLayer);
+        Collider2D bossCollider = GetComponent<Collider2D>();
+        Collider2D playerCollider = GameObject.FindWithTag("Jugador").GetComponent<Collider2D>();
 
-        if (hit.collider != null)
-        {
-            BossAttack attack = GetComponent<BossAttack>();
-            if (attack != null && !attack.IsAttacking)
-                attack.StartAttackCycle(hit.collider.transform);
-        }
+        Physics2D.IgnoreCollision(bossCollider, playerCollider);
     }
-
+    
     public void SetCanMove(bool value)
     {
         canMove = value;
@@ -109,11 +107,4 @@ public class BossController : MonoBehaviour
         transform.localScale = scale;
     }
 
-    // Gizmos para debug visual
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.color = Color.red;
-        Vector3 dir = transform.localScale.x > 0 ? Vector3.right : Vector3.left;
-        Gizmos.DrawLine(transform.position, transform.position + dir * detectionRange);
-    }
 }

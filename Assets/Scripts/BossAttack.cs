@@ -3,12 +3,11 @@ using System.Collections;
 
 public class BossAttack : MonoBehaviour
 {
-    [Header("Ataque")]
-    public float attackCooldown = 0.5f;
-    public float attackDelay = 0.2f; // tiempo hasta que se activa el golpe
-    public Transform hitBox;
-    public Animator animator;
+    public float attackDelay = 0.5f;    // tiempo de animación antes de golpear
+    public float attackCooldown = 0.5f; // tiempo entre ataques
+    public int damage = 2;              // daño del boss
 
+    private Animator animator;
     private BossController controller;
     private bool isAttacking = false;
     private Transform playerTarget;
@@ -19,41 +18,52 @@ public class BossAttack : MonoBehaviour
     {
         controller = GetComponent<BossController>();
         animator = GetComponent<Animator>();
-        if (hitBox != null)
-            hitBox.gameObject.SetActive(false);
     }
 
-    public void StartAttackCycle(Transform target)
+    public void PlayerEnRango(Transform player)
     {
+        playerTarget = player;
+
         if (!isAttacking)
-            StartCoroutine(AttackCoroutine(target));
+        {
+            isAttacking = true;
+            StartCoroutine(AttackLoop());
+        }
     }
 
-    private IEnumerator AttackCoroutine(Transform target)
+    public void PlayerSalioRango()
     {
-        isAttacking = true;
-        playerTarget = target;
+        playerTarget = null;
+    }
+
+    private IEnumerator AttackLoop()
+    {
         controller.SetCanMove(false);
 
-        animator.SetBool("IsAttacking", true);
+        while (playerTarget != null)
+        {
+            // Iniciar animación de ataque
+            animator.SetBool("IsAttacking", true);
 
-        yield return new WaitForSeconds(attackDelay);
-        if (hitBox != null) hitBox.gameObject.SetActive(true);
+            // Esperar la duración de la animación antes de aplicar daño
+            yield return new WaitForSeconds(attackDelay);
 
-        yield return new WaitForSeconds(0.2f); // duración activa del golpe
-        if (hitBox != null) hitBox.gameObject.SetActive(false);
+            // Aplicar daño al jugador si sigue en rango
+            if (playerTarget != null)
+            {
+                VidaJugador vida = playerTarget.GetComponent<VidaJugador>();
+                if (vida != null)
+                    vida.RecibirDanio(damage);
+            }
 
-        animator.SetBool("IsAttacking", false);
+            // Terminar animación
+            animator.SetBool("IsAttacking", false);
 
-        yield return new WaitForSeconds(attackCooldown);
+            // Esperar cooldown antes del siguiente ataque
+            yield return new WaitForSeconds(attackCooldown);
+        }
 
-        // Si el jugador sigue en rango, volver a atacar
-        float distance = Vector2.Distance(transform.position, playerTarget.position);
-        if (distance < controller.detectionRange)
-            StartCoroutine(AttackCoroutine(playerTarget));
-        else
-            controller.SetCanMove(true);
-
+        controller.SetCanMove(true);
         isAttacking = false;
     }
 }
