@@ -1,16 +1,30 @@
+// ControladorPuntuacionEnemigo.cs
 using UnityEngine;
 using TMPro;
 
 public class ControladorPuntuacionEnemigo : MonoBehaviour
 {
     public TextMeshProUGUI textoPuntuacion;
-    private int puntuacion = 0;
+
+    void Start()
+    {
+        ActualizarTexto();
+    }
 
     public void IncrementarPuntuacion(int cantidad)
     {
-        puntuacion += cantidad;
-        textoPuntuacion.text = puntuacion.ToString("D5");
+        GameManager.instance.puntuacionEnemigos += cantidad;
+        ActualizarTexto();
     }
-    public int getPuntuacion() { return puntuacion; }
 
+    void ActualizarTexto()
+    {
+        if (textoPuntuacion != null)
+            textoPuntuacion.text = "" + GameManager.instance.puntuacionEnemigos;
+    }
+
+    public int getPuntuacion()
+    {
+        return GameManager.instance.puntuacionEnemigos;
+    }
 }
