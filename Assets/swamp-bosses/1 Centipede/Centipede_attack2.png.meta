@@ -131,7 +131,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 69240fa1a5653c74fa159cd2a40981d4
-      internalID: 200873813
+      internalID: 8474625173248859686
       vertices: []
       indices: 
       edges: []
@@ -153,7 +153,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: d245af4b7e70d9a40a53189f1533e98b
-      internalID: -339798481
+      internalID: 3293998193983378443
       vertices: []
       indices: 
       edges: []
@@ -175,7 +175,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: ec00918f736b9a3479b475ec564b89d6
-      internalID: -1516617225
+      internalID: -6906149407646337713
       vertices: []
       indices: 
       edges: []
@@ -197,7 +197,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: ec6ed6942b55b134481654336c15e471
-      internalID: 15272566
+      internalID: 3888737341916441377
       vertices: []
       indices: 
       edges: []
@@ -219,7 +219,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 0e161f3b8f902fa4d92a09f4645ea3dc
-      internalID: -146018777
+      internalID: 8999652936504535952
       vertices: []
       indices: 
       edges: []
@@ -241,7 +241,7 @@ TextureImporter:
       tessellationDetail: 0
       bones: []
       spriteID: 71162bf8bcb8b4f4e82277af7229176d
-      internalID: 1642452401
+      internalID: 2699110496295538302
       vertices: []
       indices: 
       edges: []
@@ -260,12 +260,12 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Centipede_attack2_0: 200873813
-      Centipede_attack2_1: -339798481
-      Centipede_attack2_2: -1516617225
-      Centipede_attack2_3: 15272566
-      Centipede_attack2_4: -146018777
-      Centipede_attack2_5: 1642452401
+      Centipede_attack2_0: 8474625173248859686
+      Centipede_attack2_1: 3293998193983378443
+      Centipede_attack2_2: -6906149407646337713
+      Centipede_attack2_3: 3888737341916441377
+      Centipede_attack2_4: 8999652936504535952
+      Centipede_attack2_5: 2699110496295538302
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
