@@ -18,4 +18,10 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    public void ResetearDatos()
+    {
+        puntuacion = 0; // La puntuación vuelve a cero
+        Debug.Log("Puntuación restablecida a cero.");
+        // Si tuvieras más variables persistentes (vidas, nivel, etc.), también las pondrías aquí
+    }
 }
