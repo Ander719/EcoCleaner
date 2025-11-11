@@ -179,7 +179,7 @@ private void OnCollisionExit2D(Collision2D collision)
         }
         if (other.CompareTag("Finish"))
         {
-            SceneManager.LoadScene("ander");
+            SceneManager.LoadScene("Nivel2");
         }
     }
     private IEnumerator EfectoVino()
