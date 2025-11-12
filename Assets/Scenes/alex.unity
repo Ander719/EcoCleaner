@@ -283,8 +283,8 @@ Transform:
   m_GameObject: {fileID: 754882780}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.82, y: 0.17, z: 0}
-  m_LocalScale: {x: 1, y: 0.62, z: 0}
+  m_LocalPosition: {x: -6.57, y: 0.37, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 165980114}
@@ -418,10 +418,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2101001448}
     - target: {fileID: 687794287341130142, guid: d4e3c07bcf8adf04ebdf4b4a3ce99c7c, type: 3}
-      propertyPath: playerSound
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 687794287341130142, guid: d4e3c07bcf8adf04ebdf4b4a3ce99c7c, type: 3}
       propertyPath: alturaMinima
       value: -10
       objectReference: {fileID: 0}
@@ -489,15 +485,12 @@ PrefabInstance:
       propertyPath: barraVida
       value: 
       objectReference: {fileID: 1045115096}
-    - target: {fileID: 8177272653535077484, guid: d4e3c07bcf8adf04ebdf4b4a3ce99c7c, type: 3}
-      propertyPath: audioSource
-      value: 
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 7457164031742870264, guid: d4e3c07bcf8adf04ebdf4b4a3ce99c7c, type: 3}
-    - {fileID: 8177272653535077484, guid: d4e3c07bcf8adf04ebdf4b4a3ce99c7c, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 2931734777464262331, guid: d4e3c07bcf8adf04ebdf4b4a3ce99c7c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1657823104}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d4e3c07bcf8adf04ebdf4b4a3ce99c7c, type: 3}
 --- !u!114 &1137530705 stripped
@@ -947,6 +940,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2bd1c4ad8de7ad4f974c0906eee1f10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &1632360620 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2931734777464262331, guid: d4e3c07bcf8adf04ebdf4b4a3ce99c7c, type: 3}
+  m_PrefabInstance: {fileID: 1059973874}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1657823099
 GameObject:
   m_ObjectHideFlags: 0
@@ -979,11 +977,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d05d0fc326a673c45b2a094079854653, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objetivo: {fileID: 0}
-  alturaFija: 0
+  objetivo: {fileID: 1632360620}
+  alturaFija: 0.5
   suavizado: 5
-  minX: -10
-  maxX: 10
+  minX: -100
+  maxX: 100
 --- !u!114 &1657823101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1069,7 +1067,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 90
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
@@ -1096,11 +1094,11 @@ Transform:
   m_GameObject: {fileID: 1657823099}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -11.56, y: 2.57, z: -1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1632360620}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1711713417 stripped
 Transform:
@@ -1562,4 +1560,3 @@ SceneRoots:
   - {fileID: 1503644538}
   - {fileID: 1059973874}
   - {fileID: 613286042}
-  - {fileID: 1657823104}
