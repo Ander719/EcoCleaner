@@ -13,7 +13,7 @@ public class PlayerSound : MonoBehaviour
 
     private void Awake()
     {
-        audioManager = FindObjectOfType<AudioManager>();
+        audioManager = FindAnyObjectByType<AudioManager>();
     }
 
     public void playSaltar()

@@ -53,7 +53,7 @@ public class VidaJugador : MonoBehaviour
         if (anim != null)
             anim.SetBool("isDead", true);
 
-        // Rigidbody y collider
+        // rb y collider
         Rigidbody2D rb = GetComponent<Rigidbody2D>();
         BoxCollider2D box = GetComponent<BoxCollider2D>();
         if (rb != null && box != null)
@@ -64,12 +64,16 @@ public class VidaJugador : MonoBehaviour
             // Congelar movimiento horizontal y rotación
             rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
 
-            // Ignorar colisiones con todos los enemigos
-            Collider2D[] enemigos = FindObjectsOfType<Collider2D>();
-            foreach (var e in enemigos)
+            // Definir el radio de detección
+            float radioDeDeteccion = 5f;
+            Vector2 posicion = transform.position;
+
+            Collider2D[] enemigosCercanos = Physics2D.OverlapCircleAll(posicion, radioDeDeteccion);
+
+            foreach (var enemigo in enemigosCercanos)
             {
-                if (e.CompareTag("Enemigo"))
-                    Physics2D.IgnoreCollision(e, box);
+                if (enemigo.CompareTag("Enemigo"))
+                    Physics2D.IgnoreCollision(enemigo, box);
             }
         }
 
@@ -78,13 +82,13 @@ public class VidaJugador : MonoBehaviour
         ControladorPuntuacion puntajebasura = FindAnyObjectByType<ControladorPuntuacion>();
         if (puntaje != null && puntajebasura != null)
         {
-            DatosJuego.puntuacionEnemigo = puntaje.getPuntuacion();
-            DatosJuego.puntuacionBasura = puntajebasura.getBasura();
+            DatosJuego.puntuacionEnemigo = puntaje.GetPuntuacion();
+            DatosJuego.puntuacionBasura = puntajebasura.GetBasura();
         }
 
         // Esperar animación antes de cargar GameOver
         float duracionAnimacion = 2.5f;
-        Invoke("CargarGameOver", duracionAnimacion);
+        Invoke(nameof(CargarGameOver), duracionAnimacion);
     }
 
     // M�todo para cargar la escena de Game Over

@@ -6,7 +6,7 @@ public class AudioManager : MonoBehaviour
 
     void Awake()
     {
-        if (FindObjectsOfType<AudioManager>().Length > 1)
+        if (FindObjectsByType<AudioManager>(FindObjectsSortMode.None).Length > 1)
         {
             Destroy(gameObject);
             return;
@@ -33,7 +33,7 @@ public class AudioManager : MonoBehaviour
             musicaSource.mute = !activo;
 
         // Silenciar/activar efectos del jugador
-        PlayerSound[] efectosJugador = FindObjectsOfType<PlayerSound>();
+        PlayerSound[] efectosJugador = FindObjectsByType<PlayerSound>(FindObjectsSortMode.None);
         foreach (PlayerSound ps in efectosJugador)
         {
             if (ps.CompareTag("Jugador"))

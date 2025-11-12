@@ -1,4 +1,3 @@
-// ControladorPuntuacionEnemigo.cs
 using UnityEngine;
 using TMPro;
 
@@ -23,7 +22,7 @@ public class ControladorPuntuacionEnemigo : MonoBehaviour
             textoPuntuacion.text = "" + GameManager.instance.puntuacionEnemigos;
     }
 
-    public int getPuntuacion()
+    public int GetPuntuacion()
     {
         return GameManager.instance.puntuacionEnemigos;
     }

@@ -7,7 +7,7 @@ public class MusicaInicio : MonoBehaviour
 
     void Awake()
     {
-        if (FindObjectsOfType<MusicaInicio>().Length > 1)
+        if (FindObjectsByType<MusicaInicio>(FindObjectsSortMode.None).Length > 1)
         {
             Destroy(gameObject);
             return;

@@ -17,7 +17,7 @@ public class OpcionesUI : MonoBehaviour
 
     void CambiarAudio(bool activo)
     {
-        AudioManager audioManager = FindObjectOfType<AudioManager>();
+        AudioManager audioManager = FindAnyObjectByType<AudioManager>();
         if (audioManager != null)
         {
             audioManager.SetAudio(activo);

@@ -3,7 +3,9 @@ using TMPro;
 
 public class ControladorPuntuacion : MonoBehaviour
 {
-    public TextMeshProUGUI textoPuntuacion;
+    public TextMeshProUGUI textoBasura;
+
+    private int puntuacion = 0;
 
     void Start()
     {
@@ -12,17 +14,17 @@ public class ControladorPuntuacion : MonoBehaviour
 
     public void IncrementarPuntuacion(int cantidad)
     {
-        GameManager.instance.puntuacion += cantidad;
+        puntuacion += cantidad;
         ActualizarTexto();
     }
 
     void ActualizarTexto()
     {
-        textoPuntuacion.text = "X" + GameManager.instance.puntuacion;
+        textoBasura.text = "X" + puntuacion;
     }
 
-    public int getBasura()
+    public int GetBasura()
     {
-        return GameManager.instance.puntuacion;
+        return puntuacion;
     }
 }
