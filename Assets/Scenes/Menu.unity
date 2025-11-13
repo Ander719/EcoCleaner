@@ -927,7 +927,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   musicaSource: {fileID: 1245275823}
-  efectos: []
+  musicaMenu: {fileID: 8300000, guid: 72355cb33cc870349863061793f160ba, type: 3}
+  musicaNivel1: {fileID: 8300000, guid: 430a3c60157fe974792780c84a424eaf, type: 3}
 --- !u!4 &953091579
 Transform:
   m_ObjectHideFlags: 0
