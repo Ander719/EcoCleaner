@@ -32,7 +32,7 @@ public class BossController : MonoBehaviour
         halfWidth = spriteRender.bounds.extents.x;
         halfHeight = spriteRender.bounds.extents.y;
 
-        IgnorarColision();
+        //IgnorarColision();
         UpdateFlip();
     }
 
