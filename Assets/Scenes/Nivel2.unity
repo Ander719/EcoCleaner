@@ -4240,6 +4240,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1455066206}
     - target: {fileID: 687794287341130142, guid: 1682e4b4f27079e418af02f6b1a08780, type: 3}
+      propertyPath: velocidad
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 687794287341130142, guid: 1682e4b4f27079e418af02f6b1a08780, type: 3}
       propertyPath: cuentaAtras
       value: 
       objectReference: {fileID: 1455066205}
@@ -4287,6 +4291,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Jugador
       objectReference: {fileID: 0}
+    - target: {fileID: 7771010517408833251, guid: 1682e4b4f27079e418af02f6b1a08780, type: 3}
+      propertyPath: barraVida
+      value: 
+      objectReference: {fileID: 1455066207}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -4764,6 +4772,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5481906471677393331, guid: 7ffa92dcf012bdc4ea764b65c7455587, type: 3}
   m_PrefabInstance: {fileID: 1455066204}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1455066207 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6191953024016733306, guid: 7ffa92dcf012bdc4ea764b65c7455587, type: 3}
+  m_PrefabInstance: {fileID: 1455066204}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67db9e8f0e2ae9c40bc1e2b64352a6b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1455235879
 GameObject:
   m_ObjectHideFlags: 0

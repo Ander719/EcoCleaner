@@ -5,8 +5,6 @@ public class ControladorPuntuacion : MonoBehaviour
 {
     public TextMeshProUGUI textoBasura;
 
-    private int puntuacion = 0;
-
     void Start()
     {
         ActualizarTexto();
@@ -14,17 +12,19 @@ public class ControladorPuntuacion : MonoBehaviour
 
     public void IncrementarPuntuacion(int cantidad)
     {
-        puntuacion += cantidad;
+        // Usamos GameManager para persistir la puntuación
+        GameManager.instance.puntuacion += cantidad;
         ActualizarTexto();
     }
 
     void ActualizarTexto()
     {
-        textoBasura.text = "X" + puntuacion;
+        if (textoBasura != null)
+            textoBasura.text = "X" + GameManager.instance.puntuacion;
     }
 
     public int GetBasura()
     {
-        return puntuacion;
+        return GameManager.instance.puntuacion;
     }
 }
