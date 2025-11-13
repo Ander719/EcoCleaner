@@ -126,7 +126,21 @@ public class Player2D : MonoBehaviour
         // Enemigo
         if (collision.collider.CompareTag("Enemigo") || collision.collider.CompareTag("Boss"))
         {
-            if (!recibiendoDanio)
+            if (atacando)
+            {
+                if (collision.collider.CompareTag("Enemigo"))
+                {
+                    Enemigo e = collision.gameObject.GetComponent<Enemigo>();
+                    if (e != null) e.Morir();
+                    else Destroy(collision.gameObject);
+                }
+                if (collision.collider.CompareTag("Boss"))
+                {
+                    BossHealth bossVida = collision.gameObject.GetComponent<BossHealth>();
+                    if (bossVida != null) bossVida.TakeDamage(1);
+                }
+            }
+            else if (!recibiendoDanio)
             {
                 if (transform.position.y > collision.transform.position.y + 0.3f)
                 {
@@ -138,17 +152,6 @@ public class Player2D : MonoBehaviour
                     playerSound.playRecibirDano();
                     StartCoroutine(RecibirDanio(collision));
                 }
-            }
-            if (collision.collider.CompareTag("Enemigo") && atacando)
-            {
-                Enemigo e = collision.gameObject.GetComponent<Enemigo>();
-                if (e != null) e.Morir();
-                else Destroy(collision.gameObject);
-            }
-            if (collision.collider.CompareTag("Boss") && atacando)
-            {
-                BossHealth bossVida = collision.gameObject.GetComponent<BossHealth>();
-                if (bossVida != null) bossVida.TakeDamage(1);
             }
         }
     }

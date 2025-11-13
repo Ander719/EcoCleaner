@@ -94,6 +94,6 @@ public class VidaJugador : MonoBehaviour
     // M�todo para cargar la escena de Game Over
     private void CargarGameOver()
     {
-        SceneManager.LoadScene("Victoria"); // Aseg�rate que coincide con el nombre de tu escena
+        SceneManager.LoadScene("GameOver"); // Aseg�rate que coincide con el nombre de tu escena
     }
 }

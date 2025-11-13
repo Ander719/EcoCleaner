@@ -1,12 +1,12 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class AudioManager : MonoBehaviour
 {
-    public AudioSource musicaSource; // AudioSource que reproduce la música
-    public AudioClip musicaMenu;     // Música de Menu/Opciones/Créditos
-    public AudioClip musicaNivel1;   // Música de Nivel1
-    // Puedes agregar más clips para otros niveles si quieres
+    public AudioSource musicaSource; // AudioSource que reproduce la mÃºsica
+    public AudioClip musicaMenu;     // MÃºsica de Menu/Opciones/CrÃ©ditos
+    public AudioClip musicaNivel1;   // MÃºsica de Nivel1
+    // Puedes agregar mÃ¡s clips para otros niveles si quieres
 
     void Awake()
     {
@@ -23,7 +23,7 @@ public class AudioManager : MonoBehaviour
 
     void Start()
     {
-        // Reproducir música del menú al inicio
+        // Reproducir mÃºsica del menÃº al inicio
         if (musicaSource != null && !musicaSource.isPlaying)
         {
             musicaSource.clip = musicaMenu;
@@ -39,30 +39,35 @@ public class AudioManager : MonoBehaviour
     {
         if (musicaSource == null) return;
 
-        // Cambiar música según la escena
         switch (scene.name)
         {
             case "Menu":
             case "Opciones":
             case "Creditos":
-                if (musicaSource.clip != musicaMenu)
-                {
-                    musicaSource.clip = musicaMenu;
-                    musicaSource.loop = true;
-                    musicaSource.Play();
-                }
+                CambiarMusica(musicaMenu);
                 break;
 
             case "Nivel1":
-                if (musicaSource.clip != musicaNivel1)
-                {
-                    musicaSource.clip = musicaNivel1;
-                    musicaSource.loop = true;
-                    musicaSource.Play();
-                }
+                CambiarMusica(musicaNivel1);
                 break;
 
-                // Aquí puedes añadir más niveles con más casos
+            case "Victoria":
+            case "GameOver":
+                // ðŸš« Detener la mÃºsica completamente
+                musicaSource.Stop();
+                break;
+
+                // AquÃ­ puedes aÃ±adir mÃ¡s casos segÃºn tus niveles
+        }
+    }
+
+    private void CambiarMusica(AudioClip nuevoClip)
+    {
+        if (musicaSource.clip != nuevoClip)
+        {
+            musicaSource.clip = nuevoClip;
+            musicaSource.loop = true;
+            musicaSource.Play();
         }
     }
 

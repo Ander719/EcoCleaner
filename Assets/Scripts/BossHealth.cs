@@ -1,5 +1,4 @@
 using System.Collections;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -79,6 +78,14 @@ public class BossHealth : MonoBehaviour
 
         // Espera el tiempo real de tu animación (ajústalo manualmente)
         yield return new WaitForSeconds(2.5f);
+
+        ControladorPuntuacionEnemigo puntaje = FindAnyObjectByType<ControladorPuntuacionEnemigo>();
+        ControladorPuntuacion puntajebasura = FindAnyObjectByType<ControladorPuntuacion>();
+        if (puntaje != null && puntajebasura != null)
+        {
+            DatosJuego.puntuacionEnemigo = puntaje.GetPuntuacion();
+            DatosJuego.puntuacionBasura = puntajebasura.GetBasura();
+        }
 
         // Destruye el boss y pasa a la escena
         Destroy(gameObject);
