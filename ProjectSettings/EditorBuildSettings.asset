@@ -29,5 +29,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Nivel2.unity
     guid: 1bd974b35dc98cb4ba7217b4dc5274e5
+  - enabled: 1
+    path: Assets/Scenes/alex.unity
+    guid: 0cbe610a1723d6a45a18bb349322c53c
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
