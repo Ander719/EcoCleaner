@@ -16,6 +16,8 @@ public class BossHealth : MonoBehaviour
     private BossController bossController;
     private BossAttack bossAttack;
     private Rigidbody2D rb;
+    private Collider2D bossCollider;
+    private Collider2D playerCollider;
 
     private void Start()
     {
@@ -24,6 +26,9 @@ public class BossHealth : MonoBehaviour
         bossController = GetComponent<BossController>();
         bossAttack = GetComponent<BossAttack>();
         rb = GetComponent<Rigidbody2D>();
+
+        playerCollider = GameObject.FindWithTag("Jugador").GetComponent<Collider2D>();
+        bossCollider = GetComponent<Collider2D>();
     }
     public void TakeDamage(int amount)
     {
@@ -37,6 +42,7 @@ public class BossHealth : MonoBehaviour
         }
         else
         {
+            Physics2D.IgnoreCollision(bossCollider, playerCollider);
             StartCoroutine(DieRoutine());
         }
     }
@@ -64,19 +70,18 @@ public class BossHealth : MonoBehaviour
     private IEnumerator DieRoutine()
     {
         isDead = true;
-        animator.SetBool("IsDead", true);
+        animator.SetTrigger("IsDead");
 
         // Desactiva todo movimiento y ataques
         bossController.enabled = false;
         bossAttack.enabled = false;
         rb.linearVelocity = Vector2.zero;
 
-        // Esperar la duración de la animación de muerte
-        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+        // Espera el tiempo real de tu animación (ajústalo manualmente)
+        yield return new WaitForSeconds(2.5f);
 
-        // Aquí puedes hacer que desaparezca o destruirlo
+        // Destruye el boss y pasa a la escena
         Destroy(gameObject);
-        yield return new WaitForSeconds(1);
         SceneManager.LoadScene("Victoria");
     }
 }
