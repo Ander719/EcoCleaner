@@ -123,8 +123,8 @@ public class Player2D : MonoBehaviour
     }
 
     // Enemigo
-    if (collision.collider.CompareTag("Enemigo"))
-    {
+    if (collision.collider.CompareTag("Enemigo") || collision.collider.CompareTag("Boss"))
+        {
         if (atacando)
         {
             Enemigo e = collision.gameObject.GetComponent<Enemigo>();

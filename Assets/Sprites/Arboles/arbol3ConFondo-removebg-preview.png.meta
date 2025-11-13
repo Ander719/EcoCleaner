@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: af7f032471f1fea42b75a5dd4cf89fe0
+guid: 5d73654d089a9fe4c997efd31e5f3fb5
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6079727900541150490
-    second: sucio_0
+      213: -5816718752575635037
+    second: arbol3ConFondo-removebg-preview_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: sucio_0
+      name: arbol3ConFondo-removebg-preview_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1536
-        height: 1024
+        x: 4
+        y: 18
+        width: 362
+        height: 372
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: a1569c250588f5450800000000000000
-      internalID: 6079727900541150490
+      spriteID: 3a14062ec1dd64fa0800000000000000
+      internalID: -5816718752575635037
       vertices: []
       indices: 
       edges: []
@@ -134,8 +134,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      sucio_0: 6079727900541150490
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
