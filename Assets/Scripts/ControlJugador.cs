@@ -50,7 +50,8 @@ public class Player2D : MonoBehaviour
         boxCollider = GetComponent<BoxCollider2D>();
     }
 
-    private void Start() {
+    private void Start()
+    {
         velocidadOriginal = velocidad;
     }
 
@@ -109,52 +110,57 @@ public class Player2D : MonoBehaviour
         }
     }
 
-   private void OnCollisionEnter2D(Collision2D collision)
-{
-    // ✅ Detectar suelo incluso con CompositeCollider2D
-    if (
-        collision.collider.CompareTag("Suelo") ||
-        (collision.collider.transform.parent != null && collision.collider.transform.parent.CompareTag("Suelo")) ||
-        collision.collider.CompareTag("Enemigo")
-    )
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        enSuelo = true;
-        animator.SetBool("isJumping", false);
+        // ✅ Detectar suelo incluso con CompositeCollider2D
+        if (
+            collision.collider.CompareTag("Suelo") ||
+            (collision.collider.transform.parent != null && collision.collider.transform.parent.CompareTag("Suelo")) ||
+            collision.collider.CompareTag("Enemigo")
+        )
+        {
+            enSuelo = true;
+            animator.SetBool("isJumping", false);
+        }
+
+        // Enemigo
+        if (collision.collider.CompareTag("Enemigo") || collision.collider.CompareTag("Boss"))
+        {
+            if (!recibiendoDanio)
+            {
+                if (transform.position.y > collision.transform.position.y + 0.3f)
+                {
+                    playerSound.playSaltar();
+                    rb.linearVelocity = new Vector2(rb.linearVelocity.x, reboteAlEnemigo);
+                }
+                else
+                {
+                    playerSound.playRecibirDano();
+                    StartCoroutine(RecibirDanio(collision));
+                }
+            }
+            if (collision.collider.CompareTag("Enemigo") && atacando)
+            {
+                Enemigo e = collision.gameObject.GetComponent<Enemigo>();
+                if (e != null) e.Morir();
+                else Destroy(collision.gameObject);
+            }
+            if (collision.collider.CompareTag("Boss") && atacando)
+            {
+                BossHealth bossVida = collision.gameObject.GetComponent<BossHealth>();
+                if (bossVida != null) bossVida.TakeDamage(1);
+            }
+        }
     }
 
-    // Enemigo
-    if (collision.collider.CompareTag("Enemigo") || collision.collider.CompareTag("Boss"))
-        {
-        if (atacando)
-        {
-            Enemigo e = collision.gameObject.GetComponent<Enemigo>();
-            if (e != null) e.Morir();
-            else Destroy(collision.gameObject);
-        }
-        else if (!recibiendoDanio)
-        {
-            if (transform.position.y > collision.transform.position.y + 0.3f)
-            {
-                playerSound.playSaltar();
-                rb.linearVelocity = new Vector2(rb.linearVelocity.x, reboteAlEnemigo);
-            }
-            else
-            {
-                playerSound.playRecibirDano();
-                StartCoroutine(RecibirDanio(collision));
-            }
-        }
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (
+            collision.collider.CompareTag("Suelo") ||
+            (collision.collider.transform.parent != null && collision.collider.transform.parent.CompareTag("Suelo"))
+        )
+            enSuelo = false;
     }
-}
-
-private void OnCollisionExit2D(Collision2D collision)
-{
-    if (
-        collision.collider.CompareTag("Suelo") ||
-        (collision.collider.transform.parent != null && collision.collider.transform.parent.CompareTag("Suelo"))
-    )
-        enSuelo = false;
-}
 
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -246,7 +252,7 @@ private void OnCollisionExit2D(Collision2D collision)
 
         if (vida != null)
         {
-            vida.RecibirDanio(3);
+            vida.RecibirDanio(1);
         }
 
         yield return new WaitForSeconds(duracionDanio);
